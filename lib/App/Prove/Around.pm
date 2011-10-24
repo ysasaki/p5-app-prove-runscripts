@@ -7,7 +7,7 @@ use parent 'App::Prove';
 use Class::Method::Modifiers;
 use Getopt::Long;
 
-our $VERSION = '0.01';
+our $VERSION = 'y';
 
 around 'process_args' => sub {
     my $orig = shift;

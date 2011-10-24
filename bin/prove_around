@@ -1,0 +1,28 @@
+#!perl
+use strict;
+use warnings;
+use App::Prove::Around;
+
+my $app = App::Prove::Around->new;
+$app->process_args(@ARGV);
+exit( $app->run ? 0 : 1 );
+
+__END__
+
+=head1 NAME
+
+prove_around - Run scripts around a TAP harness.
+
+=head1 USAGE
+
+ prove_around [options] [files or directories]
+
+=head1 OPTIONS
+
+Options that take arguments:
+      --before          Run script before a TAP harness.
+      --after           Run script after a TAP harness.
+
+See I<prove -h> for more details.
+
+=cut

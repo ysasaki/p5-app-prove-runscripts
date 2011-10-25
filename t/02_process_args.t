@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
-use App::Prove::Around;
+use App::Prove::RunScripts;
 use t::Utils;
 
 subtest 'empty args' => sub {

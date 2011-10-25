@@ -2,9 +2,9 @@ use 5.008008;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-    NAME          => 'App::Prove::Around',
-    VERSION_FROM  => 'lib/App/Prove/Around.pm',
-    ABSTRACT_FROM => 'lib/App/Prove/Around.pm',
+    NAME          => 'App::Prove::RunScripts',
+    VERSION_FROM  => 'lib/App/Prove/RunScripts.pm',
+    ABSTRACT_FROM => 'lib/App/Prove/RunScripts.pm',
     AUTHOR        => 'Yoshihiro Sasaki <ysasaki at cpan.org>',
     ABSTRACT      => 'Run scripts around a TAP harness.',
     PREREQ_PM     => {
@@ -15,10 +15,10 @@ WriteMakefile(
         resources => {
             license => 'http://dev.perl.org/licenses/',
             bugtracker =>
-                'https://github.com/ysasaki/p5-app-prove-around/issues',
-            repository => 'git://github.com/ysasaki/p5-app-prove-around.git',
+                'https://github.com/ysasaki/p5-app-prove-runscripts/issues',
+            repository => 'git://github.com/ysasaki/p5-app-prove-runscripts.git',
         },
     },
-    EXE_FILES => ['bin/prove_around'],
+    EXE_FILES => ['bin/prove_runscripts'],
     LICENSE   => 'perl',
 );

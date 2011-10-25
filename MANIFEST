@@ -1,6 +1,6 @@
-bin/prove_around
+bin/prove_runscripts
 Changes
-lib/App/Prove/Around.pm
+lib/App/Prove/RunScripts.pm
 Makefile.PL
 MANIFEST			This list of files
 README

@@ -27,13 +27,13 @@ around 'process_args' => sub {
 around 'run' => sub {
     my $orig = shift;
     my $self = shift;
-    $self->_do('before');
+    $self->_run_scripts('before');
     my $ret = $orig->($self);
-    $self->_do('after');
+    $self->_run_scripts('after');
     return $ret;
 };
 
-sub _do {
+sub _run_scripts {
     my $self = shift;
     my $type = shift;
     if ( my $script = $self->{$type} ) {

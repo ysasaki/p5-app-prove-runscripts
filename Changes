@@ -1,5 +1,8 @@
 Revision history for Perl extension App::Prove::RunScripts
 
+0.03  Tue Oct 25 23:37 2011
+    - using Class::Method::Modifiers#install_modifier to set before/after scripts #1
+
 0.02  Tue Oct 25 12:37 2011
     - change module name and script name.
 

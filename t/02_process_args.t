@@ -4,28 +4,40 @@ use Test::More;
 use App::Prove::RunScripts;
 use t::Utils;
 
-subtest 'empty args' => sub {
+subtest 'empty' => sub {
     my $app = app_with_args( [] );
-    ok !$app->{before}, 'before option does not exist';
-    ok !$app->{after},  'after option does not exist';
+    is_deeply $app->{before}, [], 'before option does not exist';
+    is_deeply $app->{after}, [], 'after option does not exist';
 };
 
-subtest 'with before' => sub {
+subtest 'before' => sub {
     my $app = app_with_args( [qw(--before hello.pl)] );
-    is $app->{before}, 'hello.pl', 'before option exists';
-    ok !$app->{after}, 'after option does not exist';
+    is_deeply $app->{before}, ['hello.pl'], 'before option exists';
+    is_deeply $app->{after}, [], 'after option does not exist';
 };
 
-subtest 'with after' => sub {
-    my $app = app_with_args( [qw(--after hello.pl)] );
-    ok !$app->{before}, 'before option does not exist';
-    is $app->{after}, 'hello.pl', 'after option exists';
+subtest 'before more' => sub {
+    my $app = app_with_args( [qw(--before hello.pl --before hello2.pl)] );
+    is_deeply $app->{before}, ['hello.pl', 'hello2.pl'], 'before option exists';
+    is_deeply $app->{after}, [], 'after option does not exist';
 };
 
-subtest 'with before and after' => sub {
+subtest 'after' => sub {
+    my $app = app_with_args( [qw(--after hello.pl --after hello2.pl)] );
+    is_deeply $app->{before}, [], 'before option does not exist';
+    is_deeply $app->{after}, ['hello.pl', 'hello2.pl'], 'after option exists';
+};
+
+subtest 'after more' => sub {
+    my $app = app_with_args( [qw(--after hello.pl --after hello2.pl)] );
+    is_deeply $app->{before}, [], 'before option does not exist';
+    is_deeply $app->{after}, ['hello.pl', 'hello2.pl'], 'after option exists';
+};
+
+subtest 'before and after' => sub {
     my $app = app_with_args( [qw(--before hello1.pl --after hello2.pl)] );
-    is $app->{before}, 'hello1.pl', 'before option exists';
-    is $app->{after},  'hello2.pl', 'after option exists';
+    is_deeply $app->{before}, ['hello1.pl'], 'before option exists';
+    is_deeply $app->{after},  ['hello2.pl'], 'after option exists';
 };
 
 done_testing;

@@ -4,42 +4,40 @@ use 5.008008;
 use strict;
 use warnings;
 use parent 'App::Prove';
-use Class::Method::Modifiers;
+use Class::Method::Modifiers qw(around install_modifier);
 use Getopt::Long;
 use Carp ();
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 around 'process_args' => sub {
     my $orig = shift;
     my ( $self, @args ) = @_;
-    {
-        local @ARGV = @args;
-        Getopt::Long::Configure(qw(no_ignore_case bundling pass_through));
-        GetOptions(
-            'before=s' => \$self->{before},
-            'after=s'  => \$self->{after},
-        ) or Carp::croak('Unable to continue');
-        $orig->( $self, @ARGV );
-    }
+
+    $self->{before} = [];
+    $self->{after}  = [];
+
+    local @ARGV = @args;
+    Getopt::Long::Configure(qw(no_ignore_case bundling pass_through));
+    GetOptions(
+        'before=s@' => $self->{before},
+        'after=s@'  => $self->{after},
+    ) or Carp::croak('Unable to continue');
+
+    $self->_install_scripts;
+    $orig->( $self, @ARGV );
 };
 
-around 'run' => sub {
-    my $orig = shift;
+sub _install_scripts {
     my $self = shift;
-    $self->_run_scripts('before');
-    my $ret = $orig->($self);
-    $self->_run_scripts('after');
-    return $ret;
-};
-
-sub _run_scripts {
-    my $self = shift;
-    my $type = shift;
-    if ( my $script = $self->{$type} ) {
-        local $@;
-        do $script;
-        die $@ if $@;
+    for my $type (qw(before after)){
+        for my $script (@{$self->{$type}}) {
+            install_modifier 'App::Prove', $type, 'run', sub {
+                local $@;
+                do $script;
+                die $@ if $@;
+            };
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package App::Prove::Around;
+package App::Prove::RunScripts;
 
 use 5.008008;
 use strict;
@@ -6,8 +6,9 @@ use warnings;
 use parent 'App::Prove';
 use Class::Method::Modifiers;
 use Getopt::Long;
+use Carp ();
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 around 'process_args' => sub {
     my $orig = shift;
@@ -18,7 +19,7 @@ around 'process_args' => sub {
         GetOptions(
             'before=s' => \$self->{before},
             'after=s'  => \$self->{after},
-        );
+        ) or Carp::croak('Unable to continue');
         $orig->( $self, @ARGV );
     }
 };
@@ -48,19 +49,19 @@ __END__
 
 =head1 NAME
 
-App::Prove::Around - Run scripts around a TAP harness.
+App::Prove::RunScripts - Run scripts around a TAP harness.
 
 =head1 SYNOPSIS
 
-  use App::Prove::Around;
+  use App::Prove::RunScripts;
 
-  my $app = App::Prove::Around->new;
+  my $app = App::Prove::RunScripts->new;
   $app->process_args(@ARGV);
   $app->run;
 
 =head1 DESCRIPTION
 
-Stub documentation for App::Prove::Around, created by h2xs. It looks like the
+Stub documentation for App::Prove::RunScripts, created by h2xs. It looks like the
 author of the extension was negligent enough to leave the stub
 unedited.
 

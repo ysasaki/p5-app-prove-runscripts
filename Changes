@@ -1,5 +1,8 @@
 Revision history for Perl extension App::Prove::RunScripts
 
+0.04  Wed Oct 26 00:12 2011
+    - add t/03_run_scripts.t to check running before/after scripts #3
+
 0.03  Tue Oct 25 23:37 2011
     - using Class::Method::Modifiers#install_modifier to set before/after scripts #1
 

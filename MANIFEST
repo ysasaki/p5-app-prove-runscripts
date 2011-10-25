@@ -7,4 +7,5 @@ README
 t/00_use.t
 t/01_new.t
 t/02_process_args.t
+t/03_run_scripts.t
 t/Utils.pm

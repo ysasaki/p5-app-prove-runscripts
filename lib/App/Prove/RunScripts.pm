@@ -8,7 +8,7 @@ use Class::Method::Modifiers qw(around install_modifier);
 use Getopt::Long;
 use Carp ();
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 around 'process_args' => sub {
     my $orig = shift;

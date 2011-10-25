@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use App::Prove::RunScripts;
-use t::Utils;
+use t::Utils qw(app_with_args);
 
 subtest 'empty' => sub {
     my $app = app_with_args( [] );

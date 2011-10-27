@@ -8,7 +8,7 @@ use Class::Method::Modifiers qw(around install_modifier);
 use Getopt::Long;
 use Carp ();
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 around 'process_args' => sub {
     my $orig = shift;
@@ -30,20 +30,19 @@ around 'process_args' => sub {
 
 sub _install_scripts {
     my $self = shift;
-    for my $type (qw(before after)){
-        for my $script (@{$self->{$type}}) {
-            install_modifier 'App::Prove', $type, 'run', sub {
+    for my $type (qw(before after)) {
+        install_modifier 'App::Prove', $type, 'run', sub {
+            for my $script ( @{ $self->{$type} } ) {
                 local $@;
                 do $script;
                 die $@ if $@;
-            };
-        }
+            }
+        };
     }
 }
 
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
@@ -59,15 +58,17 @@ App::Prove::RunScripts - Run scripts around a TAP harness.
 
 =head1 DESCRIPTION
 
-Stub documentation for App::Prove::RunScripts, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
+App::Prove::RunScripts provides a command C<prove_runscripts> for running your scripts before/after a TAP harness.
 
-Blah blah blah.
+This module's concept is similar to L<Module::Install::TestTarget>. But I want more simple command line tool like a C<prove>.
+
+=head1 DEPENDENCIES
+
+L<Class::Method::Modifiers>
 
 =head1 SEE ALSO
 
-L<App::Prove>, L<Module::Install::TestTarget>
+L<prove_runscrips>, L<App::Prove>, L<Module::Install::TestTarget>
 
 =head1 AUTHOR
 

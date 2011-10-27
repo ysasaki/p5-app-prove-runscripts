@@ -4,7 +4,6 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME          => 'App::Prove::RunScripts',
     VERSION_FROM  => 'lib/App/Prove/RunScripts.pm',
-    ABSTRACT_FROM => 'lib/App/Prove/RunScripts.pm',
     AUTHOR        => 'Yoshihiro Sasaki <ysasaki at cpan.org>',
     ABSTRACT      => 'Run scripts around a TAP harness.',
     PREREQ_PM     => {
